@@ -1,0 +1,102 @@
+h1 {
+	text-align: center;
+	margin: 0;
+	font-family: 'Sansita', sans-serif;
+	font-size: 4em;
+}
+header {
+	padding: 2em 0;
+	background: #13aecf;
+	margin: 0;
+	max-width: 100%;
+	min-width: 700px;
+}
+
+#layout{
+	max-width: 100%;
+	min-width: 700px;
+	height: 100%;
+
+}
+#players{
+	float: left;
+	width: 30%;
+	max-height: 100%;
+	margin: 0 auto;
+	}
+#board{
+	height: 100%;
+	text-align: center;
+	float: left;
+	width: 70%;
+}
+h3{
+	font-family: 'Sansita', sans-serif;
+	text-align: center;
+}
+h4{
+	font-family: 'Sansita', sans-serif;
+	margin-left: 1em;
+}
+input{
+	margin-left: 1em;
+}
+html,body{
+	max-height: 100%;
+	background: #e4edef;
+}
+.square{
+	height:150px;
+ 	width:150px;
+ 	background-color:lightgray;
+}
+table{
+	 margin: 0 auto;
+
+}
+td {
+	border: 1px solid white;
+	height: 200px;
+	width: 200px;
+}
+.flip {
+    height: 200px;
+    width: 200px;
+    margin: 0 auto;
+}
+.flip img {
+    width: 200px;
+    height: auto;
+}
+#playerOneInput,#playerTwoInput{
+	width: 50%;
+}
+#play{
+	border-radius: 10%;
+	margin-top:50px;
+	display : block;
+	margin-left: 20%;
+	padding:  0px 20px;	
+	background: #13aecf;
+	font-size: 1.2em;
+}
+#play h4, #playAgain h4{
+	margin:.2em;
+	padding: 0;
+}
+#play:hover{
+	background: #9ec8d1;
+}
+#playAgain{
+	font-size: 1.2em;
+	border-radius: 10%;
+	padding:  0 20px;	
+	background: #13aecf;
+}
+#playAgain:hover{
+	background: #9ec8d1;
+
+}
+table{
+	margin-top: 2%;
+}
