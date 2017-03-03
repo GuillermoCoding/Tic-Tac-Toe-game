@@ -5,8 +5,40 @@ const tiles = document.getElementsByClassName('flip');
 const playButton = document.getElementById('play');
 const playAgainButton = document.getElementById('playAgain');
 playAgainButton.style.visibility = 'hidden';
-let playerOne;
-let playerTwo;
+const user1 = JSON.parse(sessionStorage.user1);
+const user2 = JSON.parse(sessionStorage.user2);
+const playerOne = user1['name'];
+const playerTwo = user2['name'];
+let playerOneWins = user1['wins'];
+let playerTwoWins = user2['wins'];
+let playerOneLosses = user1['losses'];
+let playerTwoLosses = user2['losses'];
+
+$(document).ready(function(){
+	document.getElementById('player1').textContent=playerOne;
+	document.getElementById('player2').textContent=playerTwo;
+	document.getElementById('player1-wins').textContent=playerOneWins;
+	document.getElementById('player2-wins').textContent=playerTwoWins;
+	document.getElementById('player1-losses').textContent=playerOneLosses;
+	document.getElementById('player2-losses').textContent=playerTwoLosses;
+	// only proccess the click when there are valid inputs in the text boxes
+	
+		// Preparing the tiles to accept clicks
+		for(let i =0; i < tiles.length; i++){
+			$("#"+tiles[i].id).flip({
+  				trigger: 'manual'
+			});
+		}
+		// Displaying the initial turn
+		turn.textContent = playerOne+"'s  turn";
+		// Disabling the click event for play button
+		// Adding function to proccess the clicks on the tiles
+		playBoard.addEventListener('click',function(event){
+			tileClick(event);
+		});
+	
+});
+
 
 function tileClick(event){
 	// Only allowing tile img elements to be proccessed and tiles that are still facing the front
@@ -31,6 +63,17 @@ function tileClick(event){
  					// Passing the id from the tiles ranging from 1 - 9 to check corresponding tiles
 			 		if(checkWinner(flipDiv.id)){
 			 			turn.textContent = playerOne+' won!';
+			 			playerOneWins++;
+			 			playerTwoLosses++;
+			 			document.getElementById('player1-wins').textContent=playerOneWins;
+			 			document.getElementById('player2-losses').textContent=playerTwoLosses;
+			 			$.ajax({
+			 				method : 'post',
+			 				url : 'database.php?',
+			 				data : {type : 'update', winner: playerOne, loser: playerTwo},
+			 				
+
+			 			});
 			 			// Making the "play again" button visible on the screen
 			 			document.getElementById('playAgain').style.visibility = 'visible';
 			 		}
@@ -59,6 +102,16 @@ function tileClick(event){
 	 				// Passing the id from the tiles ranging from 1 - 9 to check corresponding tiles
 		 			if(checkWinner(flipDiv.id)){
 		 				turn.textContent = playerTwo+' won!';
+		 				playerTwoWins++;
+		 				playerOneLosses++;
+		 				document.getElementById('player2-wins').textContent=playerTwoWins;
+						document.getElementById('player1-losses').textContent=playerOneLosses;
+						$.ajax({
+			 				method : 'post',
+			 				url : 'database.php?',
+			 				data : {type : 'update', winner: playerTwo, loser: playerOne},
+
+			 			});
 		 				// Making the "play again" button visible on the screen
 		 				document.getElementById('playAgain').style.visibility = 'visible';
 		 			}
@@ -78,31 +131,6 @@ function tileClick(event){
 	 
 	 }
 }
-// Button click after players' names have been provided
-playButton.addEventListener('click',function(){
-	playerOne = document.getElementById('playerOneInput').value;
-	playerTwo = document.getElementById('playerTwoInput').value;
-	// only proccess the click when there are valid inputs in the text boxes
-	if(playerOne.length > 0 && playerTwo.length > 0){
-		// Preparing the tiles to accept clicks
-		for(let i =0; i < tiles.length; i++){
-			$("#"+tiles[i].id).flip({
-  				trigger: 'manual'
-			});
-		}
-		// Clearning the user input from the text boxes
-		document.getElementById('playerOneInput').value = '';
-		document.getElementById('playerTwoInput').value = '';
-		// Displaying the initial turn
-		turn.textContent = playerOne+"'s  turn";
-		// Disabling the click event for play button
-		playButton.style.pointerEvents = 'none';
-		// Adding function to proccess the clicks on the tiles
-		playBoard.addEventListener('click',function(event){
-			tileClick(event);
-		});
-	}
-});
 
 // Determines the tiles that the clicked tile needs to be check with
 // for a match in img src
@@ -183,5 +211,10 @@ playAgain.addEventListener('click',function(){
 	}
 
 });
+
+
+
+
+
 
 
