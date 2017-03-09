@@ -5,6 +5,7 @@ const tiles = document.getElementsByClassName('flip');
 const playButton = document.getElementById('play');
 const playAgainButton = document.getElementById('playAgain');
 playAgainButton.style.visibility = 'hidden';
+alert(sessionStorage.user1+" "+sessionStorage.user2);
 const user1 = JSON.parse(sessionStorage.user1);
 const user2 = JSON.parse(sessionStorage.user2);
 const playerOne = user1['name'];
@@ -70,7 +71,7 @@ function tileClick(event){
 			 			$.ajax({
 			 				method : 'post',
 			 				url : 'database.php?',
-			 				data : {type : 'update', winner: playerOne, loser: playerTwo},
+			 				data : {type : 'update', winner: playerOne, loser: playerTwo}
 			 				
 
 			 			});
